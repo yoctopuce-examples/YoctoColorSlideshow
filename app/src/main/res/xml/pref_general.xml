@@ -1,0 +1,29 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:capitalize="none"
+        android:defaultValue="@string/pref_default_yocto_hub"
+        android:inputType="textUri"
+        android:key="yocto_hub"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_yocto_hub"/>
+
+    <EditTextPreference
+        android:capitalize="none"
+        android:defaultValue="@string/pref_default_img_list"
+        android:inputType="textUri"
+        android:key="img_url"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_img_url"/>
+
+
+
+
+</PreferenceScreen>
