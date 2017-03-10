@@ -25,6 +25,8 @@ import java.util.Arrays;
 
 public class MiscHelpers
 {
+
+
     public static ArrayList<String> getPictureList(Context context) throws IOException
     {
         final String img_url = PreferenceManager.getDefaultSharedPreferences(context).getString("img_url", context.getString(R.string.pref_default_img_list));
@@ -64,11 +66,11 @@ public class MiscHelpers
         final String hub_url = PreferenceManager.getDefaultSharedPreferences(context).getString("yocto_hub", context.getString(R.string.pref_default_yocto_hub));
         YAPI.EnableUSBHost(context);
         YAPI.RegisterHub(hub_url);
-        YColorLedCluster colorLedCluster = YColorLedCluster.FirstColorLedCluster();
-        while (colorLedCluster != null) {
-            final int activeLedCount = colorLedCluster.get_activeLedCount();
-            colorLedCluster.rgb_move(0, activeLedCount, dominantColor & 0xffffff, 1000);
-            colorLedCluster = colorLedCluster.nextColorLedCluster();
+        YColorLedCluster leds = YColorLedCluster.FirstColorLedCluster();
+        while (leds != null) {
+            final int activeLedCount = leds.get_activeLedCount();
+            leds.rgb_move(0, activeLedCount, dominantColor & 0xffffff, 1000);
+            leds = leds.nextColorLedCluster();
         }
         YAPI.FreeAPI();
         return dominantColor;

@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
 
@@ -19,10 +21,12 @@ import java.util.ArrayList;
 public class FullscreenActivity extends AppCompatActivity
 {
     private static final String IMAGE_PARAM = "IMAGE_PARAM";
-    private ImageView _imageView;
-    private ThumbnailDownloader<ImageView> mThumbnailDownloader;
+    private ThumbnailDownloader<ViewSwitcher> mThumbnailDownloader;
     private ArrayList<String> _imgUrls= new ArrayList<>();
     private int _pos = -1;
+    private ViewSwitcher _switcher;
+    private ImageView _imageViewA;
+    private ImageView _imageViewB;
 
 
     public static Intent intentWithParams(Context context, String imageURl)
@@ -53,17 +57,24 @@ public class FullscreenActivity extends AppCompatActivity
                 _pos = 0;
                 updatePicture();
             }
+
+            @Override
+            void onError(String msg)
+            {
+                Toast.makeText(getApplicationContext(), msg,Toast.LENGTH_LONG).show();
+            }
         }.execute();
 
 
-        _imageView = (ImageView) findViewById(R.id.fullscreen_content);
-        _imageView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+        _switcher = (ViewSwitcher) findViewById(R.id.switcher);
+
+        _switcher.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        _imageView.setOnClickListener(new View.OnClickListener()
+        _switcher.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -73,15 +84,27 @@ public class FullscreenActivity extends AppCompatActivity
         });
 
 
+        _imageViewA = (ImageView) findViewById(R.id.img_a);
+        _imageViewB = (ImageView) findViewById(R.id.img_b);
+
+
         Handler responseHandler = new Handler();
         mThumbnailDownloader = new ThumbnailDownloader<>(this, responseHandler);
         mThumbnailDownloader.setThumbnailDownloadListener(
-                new ThumbnailDownloader.ThumbnailDownloadListener<ImageView>()
+                new ThumbnailDownloader.ThumbnailDownloadListener<ViewSwitcher>()
                 {
                     @Override
-                    public void onThumbnailDownloaded(ImageView imageView, Bitmap bitmap)
+                    public void onThumbnailDownloaded(ViewSwitcher switcher, Bitmap bitmap)
                     {
-                        imageView.setImageBitmap(bitmap);
+                        if (switcher.getDisplayedChild() == 0) {
+                            _imageViewB.setImageBitmap(bitmap);
+                            switcher.showNext();
+                        } else {
+                            _imageViewA.setImageBitmap(bitmap);
+                            switcher.showPrevious();
+                        }
+
+
                     }
                 }
         );
@@ -99,7 +122,7 @@ public class FullscreenActivity extends AppCompatActivity
         }
         if (_pos < _imgUrls.size()) {
             final String url = _imgUrls.get(_pos);
-            mThumbnailDownloader.queueDisplay(_imageView, url);
+            mThumbnailDownloader.queueDisplay(_switcher, url);
         }
     }
 

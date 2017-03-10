@@ -9,10 +9,11 @@ import java.util.ArrayList;
 abstract class DownloadImageList extends AsyncTask<Void, Void, ArrayList<String>>
 {
     private final Context _context;
+    private String _errmsg;
 
     public DownloadImageList(Context context)
     {
-        _context = context;
+        _context = context.getApplicationContext();
     }
 
     protected ArrayList<String> doInBackground(Void... params)
@@ -21,6 +22,7 @@ abstract class DownloadImageList extends AsyncTask<Void, Void, ArrayList<String>
             return MiscHelpers.getPictureList(_context);
         } catch (IOException e) {
             e.printStackTrace();
+            _errmsg = e.getLocalizedMessage();
         }
         return null;
     }
@@ -29,9 +31,13 @@ abstract class DownloadImageList extends AsyncTask<Void, Void, ArrayList<String>
     {
         if (result != null) {
             updateResult(result);
+        } else if (_errmsg != null) {
+            onError(_errmsg);
         }
     }
 
     abstract void updateResult(ArrayList<String> result);
+
+    abstract void onError(String msg);
 
 }

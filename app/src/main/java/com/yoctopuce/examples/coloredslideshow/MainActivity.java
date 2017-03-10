@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -66,6 +67,13 @@ public class MainActivity extends AppCompatActivity
                 setupAdapter();
 
             }
+
+            @Override
+            void onError(String msg)
+            {
+                Snackbar.make(_recyclerView, msg, Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+            }
         }.execute();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -75,10 +83,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 startActivity(FullscreenActivity.intentWithParams(MainActivity.this, null));
-                /*
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                        */
             }
         });
     }

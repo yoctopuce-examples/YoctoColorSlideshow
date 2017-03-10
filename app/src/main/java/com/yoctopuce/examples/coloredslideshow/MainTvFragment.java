@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +71,13 @@ public class MainTvFragment extends BrowseFragment
                 }
                 //setupAdapter();
             }
+
+            @Override
+            void onError(String msg)
+            {
+                Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+
+            }
         }.execute();
 
         prepareBackgroundManager();
@@ -84,7 +92,6 @@ public class MainTvFragment extends BrowseFragment
     public void onResume()
     {
         super.onResume();
-
     }
 
     @Override
@@ -117,6 +124,7 @@ public class MainTvFragment extends BrowseFragment
 
         mRowsAdapter.add(new ListRow(prefHeader, gridRowAdapter));
 
+
         final HeadersFragment headersFragment = getHeadersFragment();
         headersFragment.setOnHeaderClickedListener(new HeadersFragment.OnHeaderClickedListener()
         {
@@ -125,7 +133,7 @@ public class MainTvFragment extends BrowseFragment
             {
                 Log.d(TAG, row.toString());
                 if (row.getId() == 1) {
-                    startActivity(new Intent(getActivity(), SettingsActivity.class));
+                    startActivity(new Intent(getActivity(), SettingsTvActivity.class));
                 }
             }
         });
