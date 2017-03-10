@@ -16,7 +16,7 @@ drive the NeoPixel LEDs. Yocto-Color-V2 can be plugged to an USB port of the And
 
 ### Note
 * This application is part of an article that explain in detail how to setup the system: 
-https://www.yoctopuce.com
+https://www.yoctopuce.com/EN/article/neopixel-android-tv-and-mood-lights
 * This application can also work on any Phone or tablet that use Android 5.0.
 * It's possible to plug the Yocto-Color-V2 to [YoctoHub](http://www.yoctopuce.com/EN/products/category/extensions-and-networking)
 of an USB connection.
