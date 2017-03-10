@@ -20,7 +20,7 @@ https://www.yoctopuce.com/EN/article/neopixel-android-tv-and-mood-lights
 * This application can also work on any Phone or tablet that use Android 5.0.
 * It's possible to plug the Yocto-Color-V2 to [YoctoHub](http://www.yoctopuce.com/EN/products/category/extensions-and-networking)
 of an USB connection.
-* The application is available on [Goolge Play](https://play.google.com/store/apps/details?id=com.yoctopuce.examples.coloredslideshow) 
+* The application is available on [Google Play](https://play.google.com/store/apps/details?id=com.yoctopuce.examples.coloredslideshow) 
 
 
 
