@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
-import android.support.v7.graphics.Palette;
+import androidx.palette.graphics.Palette;
 import android.util.Log;
 
 import com.yoctopuce.YoctoAPI.YAPI;
